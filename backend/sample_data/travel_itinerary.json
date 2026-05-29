@@ -1,0 +1,62 @@
+[
+  {
+    "trip_id": "TRV1001",
+    "employee": "Rahul Sharma",
+    "category": "Flight",
+    "origin": "CCU",
+    "destination": "DEL",
+    "distance_km": 1305,
+    "travel_class": "Economy",
+    "travel_date": "2026-05-01"
+  },
+  {
+    "trip_id": "TRV1002",
+    "employee": "Ananya Roy",
+    "category": "Hotel",
+    "city": "Mumbai",
+    "nights": 3,
+    "travel_date": "2026-05-03"
+  },
+  {
+    "trip_id": "TRV1003",
+    "employee": "Sourav Das",
+    "category": "Ground Transport",
+    "distance_km": 45,
+    "travel_date": "2026-05-04"
+  },
+  {
+    "trip_id": "TRV1004",
+    "employee": "Priya Sen",
+    "category": "Flight",
+    "origin": "CCU",
+    "destination": "LHR",
+    "distance_km": 999999,
+    "travel_class": "Business",
+    "travel_date": "2026-05-06"
+  },
+  {
+    "trip_id": "TRV1005",
+    "employee": "Arjun Mehta",
+    "category": "Flight",
+    "origin": "BOM",
+    "destination": "BLR",
+    "distance_km": 842,
+    "travel_class": "Economy",
+    "travel_date": "2026-05-07"
+  },
+  {
+    "trip_id": "TRV1006",
+    "employee": "Neha Kapoor",
+    "category": "Hotel",
+    "city": "Delhi",
+    "nights": 5,
+    "travel_date": "2026-05-09"
+  },
+  {
+    "trip_id": "TRV1007",
+    "employee": "Karan Singh",
+    "category": "Ground Transport",
+    "distance_km": -12,
+    "travel_date": "2026-05-10"
+  }
+]
