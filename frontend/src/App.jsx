@@ -7,6 +7,7 @@ import {
   useNavigate,
 } from "react-router-dom";
 import "./App.css";
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 function HomePage() {
   const [batches, setBatches] = useState([]);
@@ -18,13 +19,13 @@ function HomePage() {
   }, []);
 
   const fetchBatches = async () => {
-    const response = await fetch("/api/batches/");
+    const response = await fetch(`${API_BASE_URL}/api/batches/`);
     const data = await response.json();
     setBatches(data);
   };
 
   const fetchNormalized = async () => {
-    const response = await fetch("/api/normalized/");
+    const response = await fetch(`${API_BASE_URL}/api/normalized/`);
     const data = await response.json();
     setNormalized(data);
   };
@@ -79,7 +80,7 @@ function BatchesPage() {
   }, []);
 
   const fetchBatches = async () => {
-    const response = await fetch("/api/batches/");
+    const response = await fetch(`${API_BASE_URL}/api/batches/`);
     const data = await response.json();
     setBatches(data);
   };
@@ -163,20 +164,20 @@ function ActivitiesPage() {
   }, []);
 
   const fetchNormalized = async () => {
-    const response = await fetch("/api/normalized/");
+    const response = await fetch(`${API_BASE_URL}/api/normalized/`);
     const data = await response.json();
     setNormalized(data);
   };
 
   const approveRow = async (id) => {
-    await fetch(`/api/approve/${id}/`, {
+    await fetch(`${API_BASE_URL}/api/approve/${id}/`, {
       method: "POST",
     });
     fetchNormalized();
   };
 
   const rejectRow = async (id) => {
-    await fetch(`/api/reject/${id}/`, {
+    await fetch(`${API_BASE_URL}/api/reject/${id}/`, {
       method: "POST",
     });
     fetchNormalized();
@@ -189,13 +190,14 @@ function ActivitiesPage() {
     setShowReasonModal(true);
   };
 
-  const submitReview = async () => {
-    const endpoint =
-      selectedAction === "approved"
-        ? `/api/approve/${selectedRowId}/`
-        : `/api/reject/${selectedRowId}/`;
+const submitReview = async () => {
+  const endpoint =
+    selectedAction === "approved"
+      ? `${API_BASE_URL}/api/approve/${selectedRowId}/`
+      : `${API_BASE_URL}/api/reject/${selectedRowId}/`;
 
-    await fetch(endpoint, {
+  try {
+    const response = await fetch(endpoint, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -207,9 +209,21 @@ function ActivitiesPage() {
       }),
     });
 
-    await fetchNormalized();
-    setShowReasonModal(false);
-  };
+    const data = await response.json();
+
+    console.log("Response:", data);
+
+    if (response.ok) {
+      await fetchNormalized();
+      setShowReasonModal(false);
+    } else {
+      alert(data.error || "Something went wrong");
+    }
+  } catch (error) {
+    console.error(error);
+    alert("Failed to connect to server");
+  }
+};
 
   const prettyStatus = (value) =>
     value ? value.charAt(0).toUpperCase() + value.slice(1) : "";
@@ -402,7 +416,7 @@ function AuditLogsPage() {
   }, []);
 
   const fetchLogs = async () => {
-    const response = await fetch("/api/audit-logs/");
+    const response = await fetch(`${API_BASE_URL}/api/audit-logs/`)
     const data = await response.json();
     setLogs(data);
   };
